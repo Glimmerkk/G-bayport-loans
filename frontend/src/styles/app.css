@@ -1,8 +1,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  color: #fff;
+  background: #f8fafc;
 }
 
 .loan-container {
@@ -10,16 +9,16 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding: 20px;
+  background: #f1f5f9;
 }
 
 .card {
-  background: #1e293b;
+  background: white;
   padding: 30px;
-  border-radius: 16px;
+  border-radius: 14px;
   width: 100%;
   max-width: 350px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .header {
@@ -29,17 +28,15 @@ body {
 
 .logo {
   width: 60px;
-  margin-bottom: 10px;
 }
 
 h1 {
-  margin: 0;
-  font-size: 22px;
+  color: #d91c1c;
 }
 
 .subtitle {
+  color: #64748b;
   font-size: 13px;
-  color: #94a3b8;
 }
 
 .section {
@@ -49,33 +46,33 @@ h1 {
 input {
   width: 100%;
   padding: 12px;
-  border-radius: 10px;
-  border: none;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
   outline: none;
-  margin-top: 5px;
-  background: #334155;
-  color: white;
 }
 
-button {
+input:focus {
+  border: 1px solid #d91c1c;
+}
+
+.btn {
   width: 100%;
   padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background: #22c55e;
+  background: #d91c1c;
   color: white;
+  border: none;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 10px;
 }
 
-button:hover {
-  background: #16a34a;
+.btn:hover {
+  background: #b91c1c;
 }
 
 .spinner {
-  border: 3px solid #ccc;
-  border-top: 3px solid #22c55e;
+  border: 3px solid #eee;
+  border-top: 3px solid #d91c1c;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -83,13 +80,6 @@ button:hover {
   margin: auto;
 }
 
-.big {
-  width: 40px;
-  height: 40px;
-}
-
 @keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
+  100% { transform: rotate(360deg); }
 }

