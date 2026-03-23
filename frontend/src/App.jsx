@@ -4,7 +4,7 @@ import Calculator from "./pages/Calculator.jsx";
 import Apply from "./pages/Apply.jsx";
 import OTP from "./pages/OTP.jsx";
 import Status from "./pages/Status.jsx";
-import Telecel from "./pages/Telecel.jsx"; // ✅ MUST be capital T
+import Telecel from "./pages/Telecel.jsx"; 
 
 function App() {
   return (

