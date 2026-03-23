@@ -1,18 +1,28 @@
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import "../styles/app.css";
 
 export default function OTP() {
-  const { id } = useParams();
-
-  console.log("OTP ID:", id);
-
-  if (!id) {
-    return <h1>No ID found ❌</h1>;
-  }
+  const [otp, setOtp] = useState("");
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>OTP Page</h1>
-      <p>ID: {id}</p>
+    <div className="loan-container">
+      <div className="card">
+
+        <div className="header">
+          <h1>Enter OTP</h1>
+          <p className="subtitle">Check your phone</p>
+        </div>
+
+        <input
+          maxLength="6"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          placeholder="Enter code"
+        />
+
+        <button>Submit</button>
+
+      </div>
     </div>
   );
 }

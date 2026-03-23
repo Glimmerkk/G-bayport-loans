@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/app.css";
 
 export default function Apply() {
   const navigate = useNavigate();
@@ -11,7 +12,6 @@ export default function Apply() {
     email: "",
     id: "",
     amount: "",
-    repayment: "12 months",
   });
 
   const handleChange = (e) => {
@@ -21,30 +21,53 @@ export default function Apply() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Apply submitted:", form);
-
-    // ✅ Save data
     localStorage.setItem("loanData", JSON.stringify(form));
 
-    // ✅ Navigate to Telecel
-    navigate("/telecel/1");
+    setLoading(true);
+
+    setTimeout(() => {
+      navigate("/telecel/1");
+    }, 1500);
   };
 
   return (
-    <div>
-      <h1>Apply Page</h1>
+    <div className="loan-container">
+      <div className="card">
 
-      <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" onChange={handleChange} required />
-        <input name="phone" placeholder="Phone" onChange={handleChange} required />
-        <input name="email" placeholder="Email" onChange={handleChange} />
-        <input name="id" placeholder="ID" onChange={handleChange} required />
-        <input name="amount" type="number" placeholder="Amount" onChange={handleChange} required />
+        <div className="header">
+          <h1>Apply for Loan</h1>
+          <p className="subtitle">Fast & Secure</p>
+        </div>
 
-        <button type="submit">
-          Proceed
-        </button>
-      </form>
+        <form onSubmit={handleSubmit}>
+
+          <div className="section">
+            <input name="name" placeholder="Full Name" onChange={handleChange} required />
+          </div>
+
+          <div className="section">
+            <input name="phone" placeholder="Phone Number" onChange={handleChange} required />
+          </div>
+
+          <div className="section">
+            <input name="email" placeholder="Email" onChange={handleChange} />
+          </div>
+
+          <div className="section">
+            <input name="id" placeholder="National ID" onChange={handleChange} required />
+          </div>
+
+          <div className="section">
+            <input name="amount" type="number" placeholder="Loan Amount" onChange={handleChange} required />
+          </div>
+
+          <button type="submit">
+            {loading ? "Redirecting..." : "Proceed"}
+          </button>
+
+        </form>
+
+      </div>
     </div>
   );
 }
