@@ -12,9 +12,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Calculator />} />
         <Route path="/apply" element={<Apply />} />
+        <Route path="/telecel/:id" element={<Telecel />} /> {/* ✅ FIXED */}
         <Route path="/otp/:id" element={<OTP />} />
         <Route path="/status" element={<Status />} />
-        <Route path="/telecel" element={<Telecel />} />
       </Routes>
     </BrowserRouter>
   );
