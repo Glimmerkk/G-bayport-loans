@@ -1,17 +1,23 @@
-/* RESET + BASE */
-
+/* ===== BASIC RESET ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ===== ROOT ===== */
 html {
   font-size: 62.5%;
 }
 
+/* ===== BODY ===== */
 body {
-  font-family: system-ui, Arial, sans-serif;
-  background: #f5f7fb;
-  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f5f5;
+}
+
+/* ===== ROOT APP ===== */
+#root {
+  width: 100%;
+  min-height: 100vh;
 }

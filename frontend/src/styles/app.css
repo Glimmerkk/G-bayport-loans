@@ -1,265 +1,244 @@
-/* ================= GLOBAL ================= */
-
+/* ================= RESET ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%;
-}
-
+/* ================= BODY ================= */
 body {
-  font-family: system-ui, Arial, sans-serif;
-  background: #f5f7fb;
-  color: #333;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #e60000, #ffcc00);
+  min-height: 100vh;
 }
 
-/* ================= CALCULATOR ================= */
-
-.loan-calculator-container {
-  max-width: 420px;
-  margin: auto;
+/* ================= CONTAINER ================= */
+.loan-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
-.calculator-header h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
+/* ================= CARD ================= */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-.fast-text {
-  color: #ff7a00;
-}
-
-.subtitle {
-  font-size: 1.3rem;
-  margin-top: 5px;
-  color: #666;
-}
-
-.calculator-section {
-  background: white;
-  padding: 18px;
-  border-radius: 12px;
-  margin-top: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.calculator-control {
+/* ================= HEADER ================= */
+.header {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.control-label {
-  font-size: 1.2rem;
-  color: #777;
+.logo {
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
+  margin-bottom: 10px;
 }
 
-.amount-display,
-.term-display {
-  font-size: 1.8rem;
+.header h1 {
+  font-size: 22px;
+  color: #e60000;
   font-weight: bold;
-  margin: 5px 0;
 }
 
-.amount-slider {
+.subtitle {
+  font-size: 13px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* ================= FORM ================= */
+.section {
+  margin-bottom: 15px;
+}
+
+.section label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.section input,
+.section select {
   width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #fafafa;
 }
 
-.slider-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
+/* focus effect */
+.section input:focus,
+.section select:focus {
+  border-color: #e60000;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(230, 0, 0, 0.25);
+}
+
+/* ================= BUTTON ================= */
+.btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #e60000, #cc0000);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #cc0000, #990000);
+}
+
+/* ================= CALCULATOR ================= */
+.calculator {
+  text-align: center;
+}
+
+.amount-display {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e60000;
+  margin: 10px 0;
+}
+
+.slider {
+  width: 100%;
+  margin: 10px 0;
 }
 
 .term-buttons {
   display: flex;
-  flex-wrap: wrap;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
-.term-button {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  background: white;
-  cursor: pointer;
-}
-
-.term-button.active {
-  background: #ff7a00;
-  color: white;
-  border: none;
-}
-
-.payment-display {
-  background: #fff4ec;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.payment-label {
-  font-size: 1.2rem;
-}
-
-.payment-amount {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #ff7a00;
-}
-
-.interest-rate {
-  font-size: 1.1rem;
-  color: #777;
-}
-
-.apply-button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 12px;
-  border: none;
-  background: #ff7a00;
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* FEATURES */
-
-.features-section {
-  margin-top: 20px;
-}
-
-.feature-card {
-  display: flex;
-  gap: 10px;
-  background: white;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.feature-icon {
-  font-size: 2rem;
-}
-
-.feature-title {
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-
-.feature-desc {
-  font-size: 1.2rem;
-  color: #666;
-}
-
-/* ================= APPLY PAGE ================= */
-
-.apply-container {
-  max-width: 420px;
-  margin: auto;
-  padding: 20px;
-}
-
-.apply-container h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.apply-container p {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.apply-container label {
-  font-size: 1.2rem;
-}
-
-.apply-container input,
-.apply-container select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.dob {
-  display: flex;
-  gap: 5px;
-}
-
-.dob input {
+.term-buttons button {
   flex: 1;
-}
-
-.apply-container button {
-  width: 100%;
-  padding: 12px;
-  background: #ff7a00;
-  color: white;
-  border: none;
+  padding: 9px;
+  border: 1px solid #ddd;
+  background: #fff;
   border-radius: 8px;
-  margin-top: 10px;
   cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
 }
 
-.terms {
-  display: flex;
-  gap: 5px;
-  font-size: 1.1rem;
+.term-buttons button.active {
+  background: #e60000;
+  color: #fff;
+  border: none;
 }
 
-/* ================= OTP PAGE ================= */
+.payment {
+  margin: 15px 0;
+}
 
+.payment h2 {
+  color: #e60000;
+}
+
+/* ================= OTP / PIN ================= */
 .otp-container {
-  max-width: 350px;
-  margin: auto;
-  padding: 20px;
   text-align: center;
 }
 
-.otp-container h2 {
-  font-size: 2rem;
+.otp-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.otp-inputs input {
+  width: 45px;
+  height: 50px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  transition: 0.3s;
+}
+
+.otp-inputs input:focus {
+  border-color: #e60000;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(230, 0, 0, 0.3);
+}
+
+/* ================= STATUS ================= */
+.status-box {
+  text-align: center;
+  padding: 20px;
+}
+
+.status-box h2 {
+  color: #e60000;
   margin-bottom: 10px;
 }
 
-.otp-container input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  text-align: center;
-  font-size: 1.6rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.status-box p {
+  font-size: 14px;
+  color: #555;
 }
 
-.otp-container button {
-  width: 100%;
-  padding: 12px;
-  background: #ff7a00;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+/* ================= MOBILE ================= */
+@media (max-width: 480px) {
+  .card {
+    padding: 18px;
+  }
+
+  .header h1 {
+    font-size: 19px;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .otp-inputs input {
+    width: 40px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .btn {
+    font-size: 14px;
+  }
+}
+/* ================= SPINNER ================= */
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: auto;
 }
 
-/* ================= STATUS PAGE ================= */
-
-.status-container {
-  text-align: center;
-  margin-top: 80px;
-}
-
-.status-container h2 {
-  font-size: 2.4rem;
-}
-
-.status-container p {
-  font-size: 1.4rem;
-  margin-top: 10px;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

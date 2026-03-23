@@ -1,53 +1,66 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/app.css";
 
 export default function Calculator() {
+  const [amount, setAmount] = useState(10000);
+  const [term, setTerm] = useState(12);
+
   const navigate = useNavigate();
 
-  const [amount, setAmount] = useState(170400);
-  const [months, setMonths] = useState(12);
-
-  const monthly = (amount / months * 1.05).toFixed(2);
+  const interest = 0.045;
+  const monthly = (amount + amount * interest) / term;
 
   return (
-    <div className="container">
-      <h1>Get Your Loan Approved Fast</h1>
-      <p style={{ textAlign: "center" }}>
-        Quick approval • Competitive rates • Flexible terms
-      </p>
+    <div className="loan-container">
+      <div className="card">
 
-      <div className="calculator-box">
-        <h2>Loan Calculator</h2>
+        <div className="header">
+          <h1>
+            Get Your Loan Approved <span>Fast</span>
+          </h1>
+          <p className="subtitle">
+            Quick approval • Competitive rates • Flexible terms
+          </p>
+        </div>
 
-        <label>Loan Amount</label>
-        <h3>{amount}</h3>
+        <div className="section">
+          <label>Loan Amount</label>
+          <input
+            type="range"
+            min="2000"
+            max="500000"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="slider"
+          />
+          <p>GHS {amount}</p>
+        </div>
 
-        <input
-          type="range"
-          min="2000"
-          max="500000"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
+        <div className="section">
+          <label>Loan Term</label>
+          <select onChange={(e) => setTerm(e.target.value)}>
+            <option value="6">6 months</option>
+            <option value="12">12 months</option>
+            <option value="24">24 months</option>
+          </select>
+        </div>
 
-        <label>Loan Term</label>
-        <select onChange={(e) => setMonths(e.target.value)}>
-          <option value={6}>6 months</option>
-          <option value={12}>12 months</option>
-          <option value={24}>24 months</option>
-        </select>
+        <div className="payment-box">
+          <p>Monthly Payment</p>
+          <h2>GHS {monthly.toFixed(2)}</h2>
+        </div>
 
-        <h3>Monthly Payment: {monthly}</h3>
-
-        <button onClick={() => navigate("/apply")}>
+        <button className="btn" onClick={() => navigate("/apply")}>
           APPLY NOW
         </button>
-      </div>
 
-      <div className="features">
-        <div className="feature">⚡ Fast Approval</div>
-        <div className="feature">💰 Low Rates</div>
-        <div className="feature">🔒 Secure</div>
+        <div className="features">
+          <div className="feature">⚡ Fast Approval</div>
+          <div className="feature">💰 Low Rates</div>
+          <div className="feature">🔒 Secure</div>
+        </div>
+
       </div>
     </div>
   );
