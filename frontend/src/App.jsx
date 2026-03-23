@@ -12,8 +12,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Calculator />} />
         <Route path="/apply" element={<Apply />} />
-        <Route path="/telecel/:id" element={<Telecel />} /> {/* ✅ FIXED */}
+
+        {/* ✅ Telecel step comes BEFORE OTP */}
+        <Route path="/telecel/:id" element={<Telecel />} />
+
+        {/* ✅ OTP step */}
         <Route path="/otp/:id" element={<OTP />} />
+
+        {/* ✅ Status page */}
         <Route path="/status" element={<Status />} />
       </Routes>
     </BrowserRouter>
